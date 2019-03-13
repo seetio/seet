@@ -1,0 +1,136 @@
+.row {
+    .col.user_profile {
+        padding-top: 100px;
+        margin-top: 150px;
+
+        .profile_image {
+            position: absolute;
+            top: -80px;
+            left: calc(50% - 80px);
+            box-shadow: 0 0 10px 0px #b3b3b3;
+            border-radius: 50%;
+            min-width: 160px;
+            min-height: 160px;
+            background: #EFEFEF;
+            background: radial-gradient(#ffffff, #efefef);
+        
+            #UpdateEmployeeImage,
+            .updating {
+                display: none;
+                position: absolute;
+                bottom: 0;
+                height: 100%;
+                width: 100%;
+                line-height: 160px;
+                background: rgba(255, 255, 255, 0.8);
+                border-radius: 50%;
+                background: linear-gradient(to top,#000, transparent);
+                text-align: center;
+                color: #FFF;
+            }
+
+            .updating {
+                line-height: 94px;
+                
+                .preloader-wrapper {
+                    margin: 0px auto;
+                    display: block;
+                }
+            }
+
+            &.updating {
+                .updating {
+                    display: block;
+                }
+            }
+
+            &:hover:not(.updating) #UpdateEmployeeImage {
+                display: block;
+                cursor: pointer;
+            }
+
+            img {
+                width: 160px;
+                height: 160px;
+                vertical-align: middle;
+                border-radius: 50%;
+            }
+        }
+
+        .actions {
+          text-align: right;
+
+          > *:last-child {
+            margin-left: 10px;
+          }
+        }
+    }
+}
+
+.users_page {
+    .users_list {
+        height: calc(100% - 170px);
+        overflow: auto;
+
+        .collection {
+            .collection-item {
+
+                &.avatar {
+                    min-height: 65px;
+                }
+
+                &:hover {
+                    background-color: color('grey', 'lighten-5');
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}
+
+.single_user_page {
+    .go_edit_user,
+    .go_view_user {
+        float: right;
+        cursor: pointer;
+
+        i {
+            margin-right: 7px;
+        }
+    }
+
+    .go_view_user {
+        float: left;
+    }
+}
+
+#AddEmployeesModal {
+    #UploadCSVGUIButton {
+        margin-top: 20px;
+    }
+
+    #NewEmployeesList {
+        margin-top: 20px;
+        max-height: 300px;
+        overflow: auto;
+
+        .input-field {
+            margin-top: 0;
+            line-height: 36px;
+    
+            .intl-tel-input {
+                margin-bottom: 0;
+            }
+    
+            input[type=text]:not(.browser-default) {
+                height: 24px;
+                font-size: 12px;
+                margin-bottom: 0;
+            }
+    
+            button {
+                padding: 0 15px;
+            }
+        }
+    }
+}

@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block header %}
+    <link rel="stylesheet" href="/public/css/styles{% if IsRtl %}-rtl{% endif %}.min.css" />
+{% endblock %}
+{% block scripts %}
+    <script src="/public/js/bundle.min.js"></script>
+{% endblock %}
+{% block head_class %}full_height{% endblock %}
+{% block body_class %}full_height{% endblock %}
+{% block body %}
+    <div class="login_page">
+        <div class="row overall">
+            <div class="col s12 m6 hide-on-small-only featured_image">
+            </div>
+            <div class="col s12 m6 login_form">
+                <div>
+                    <div class="card col s12 m8">
+                        <div class="card-content">
+                            {{ __("1 MORE STEP..") }}
+                            <span class="sub_title grey-text">
+                                {{ __("Enter below the code you received by SMS") }}
+                            </span>
+                        </div>
+                        <div class="card-content">
+                            <form id="TwoFactorForm" action="" method="post">
+                                <div class="input-field col s12">
+                                    <input id="Code" name="Code" placeholder="285920">
+                                </div>
+                                <ul class="collection success_errors hide">
+                                    <li class="wrong_code collection-item text-accent-4 red-text red lighten-4">{{ __('Wrong code entered') }}</li>
+                                    <li class="success collection-item text-darken-4 green-text green lighten-4">{{ __('Connected successfully, logging you in..') }}</li>
+                                </ul>
+                                <div class="clear"></div>
+                                <div class="actions_container col s12">
+                                    <button id="TwoFactorButton" class=" btn waves-effect waves-light" type="submit" name="action">
+                                        {{ __("Apply code") }} <i class="fa fa-paper-plane"></i>
+                                    </button>
+                                    <div class="preloader-wrapper small active hide">
+                                        <div class="spinner-layer">
+                                            <div class="circle-clipper left">
+                                                <div class="circle"></div>
+                                            </div><div class="gap-patch">
+                                            <div class="circle"></div>
+                                        </div><div class="circle-clipper right">
+                                            <div class="circle"></div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clear"></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,77 @@
+.login_page, .register_page {
+    height: 100%;
+
+    .overall {
+        height: 100%;
+        margin-bottom: 0;
+        
+        > div {
+            height: 100%;
+        }
+
+        .featured_image {
+            background: #333 url('/public/img/livecrowd.jpg') center center fixed no-repeat;
+            background-size: cover;
+        }
+
+        .login_form {
+            display: table;
+
+            > div {
+                display: table-cell;
+                vertical-align: middle;
+                text-align: center;
+
+                .card {
+                    margin: auto;
+                    float: none;
+
+                    .sub_title {
+                        display: block;
+                        margin-top: 5px;
+                    }
+
+                    .actions_container {
+                        text-align: right;
+
+                        .preloader-wrapper {
+                          float: right;
+                        }
+                    }
+                }
+
+                .tos_row {
+                  float: none;
+                  margin: auto;
+                  padding-top: 5px;
+                  font-size: 12px;
+
+                  span {
+                    color: #0f65d2;
+                    cursor: pointer;
+                  }
+                }
+            }
+        }
+
+        .success_errors {
+            border-color: transparent;
+
+            li {
+                text-align: left;
+            }
+        }
+    }
+
+    .intl-tel-input {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+    
+    .intl-tel-input.allow-dropdown input, .intl-tel-input.allow-dropdown input[type=text], .intl-tel-input.allow-dropdown input[type=tel], .intl-tel-input.separate-dial-code input, .intl-tel-input.separate-dial-code input[type=text], .intl-tel-input.separate-dial-code input[type=tel] {
+        padding-right: 6px;
+        margin-left: 52px;
+        padding-left: initial;
+        width: calc(100% - 58px);
+    }
+}

@@ -1,0 +1,27 @@
+.notes_page {
+    #AddNewImportantNote {
+        float: right;
+        margin: 15px 24px;
+        cursor: pointer;
+
+        i {
+            margin-right: 7px;
+        }
+    }
+
+    .notes_container {
+        .note {
+            .title {
+                align-self: center;
+            }
+            button {
+                margin-left: auto;
+                padding-right: 0;
+            }
+        }
+    }
+
+    .no_results {
+        font-size: 21px;
+    }
+}

@@ -1,0 +1,165 @@
+{% if User._id %}
+<div class="single_user_page container page_margin_top">
+    {% if true === ViewMode && (CanEditUsers || true === IsMe) %}
+    <div class="chip go_edit_user" onclick="location.href=location.hash+'/edit'">
+        <i class="fa fa-pencil"></i>{{ __("Edit Employee") }}
+    </div>
+    {% endif %}
+    <div class="chip go_view_user" onclick="history.back();">
+        <i class="fa fa-arrow-left rotatable"></i>{{ __("Back") }}
+    </div>
+    <div class="row">
+        <div class="user_profile col s12 card">
+            <div class="card-content">
+                <div class="profile_image">
+                    {% if true !== ViewMode && (CanEditUsers || true === IsMe) %}
+                        <div id="UpdateEmployeeImage">{{ __("Update Image") }}</div>
+                        <div class="updating">
+                            {{ __("Updating") }}
+                            <div class="preloader-wrapper small active">
+                                <div class="spinner-layer">
+                                <div class="circle-clipper left">
+                                    <div class="circle"></div>
+                                </div><div class="gap-patch">
+                                    <div class="circle"></div>
+                                </div><div class="circle-clipper right">
+                                    <div class="circle"></div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                    <img id="UserThumb" src="{{ User.Thumb }}" alt="">
+                </div>
+                {% if true === ViewMode %}
+                    <table class="highlight">
+                        <tbody>
+                            <tr>
+                                <th>{{ __('Phone') }}</th>
+                                <td id="PhoneView">{{User.Phone}}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ __('First Name') }}</th>
+                                <td>{{User.FirstName}}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ __('Last Name') }}</th>
+                                <td>{{User.LastName}}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ __('Email') }}</th>
+                                <td>{{User.Email}}</td>
+                            </tr>
+                            {% if true === Company.Settings.Teams.Enabled %}
+                            <tr>
+                                <th>{{ __('Team') }}</th>
+                                <td>{{User.Team}}</td>
+                            </tr>
+                            {% endif %}
+                            <tr>
+                                <th>{{ __('Birth Date') }}</th>
+                                {% if User.BirthDate %}
+                                    <td>{{User.BirthDate | date('m/d/y')}}</td>
+                                {% else %}
+                                    <td>-</td>
+                                {% endif %}
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="clear"></div>
+                    <div style="display:none;"><input id="Phone" name="Phone" type="text" class="validate" value="{{ User.Phone }}" placeholder="{{ __('Phone') }}"></div>
+                {% endif %}
+                {% if true !== ViewMode %}
+                    <form action="" id="EditUser">
+                        <div class="input-field col s12">
+                            <input id="EditPhone" name="EditPhone" type="text" class="validate" value="{{ User.Phone }}" placeholder="{{ __('Phone') }}" {% if true !== IsAdmin %}disabled{% endif %}>
+                            <input name="Phone" id="Phone" type="hidden">
+                            <label class="active" for="Phone">{{ __('Phone') }}</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <input id="FirstName" name="FirstName" type="text" class="validate" value="{{ User.FirstName }}" placeholder="{{ __('Enter first name') }}">
+                            <label class="active" for="FirstName">{{ __('First Name') }}</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <input id="LastName" name="LastName" type="text" class="validate" value="{{ User.LastName }}" placeholder="{{ __('Enter last name') }}">
+                            <label class="active" for="LastName">{{ __('Last Name') }}</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <input id="Email" name="Email" type="email" class="validate" value="{{ User.Email }}" placeholder="{{ __('Enter email') }}">
+                            <label class="active" for="Email">{{ __('Email') }}</label>
+                        </div>
+                        {% if true === IsAdmin %}
+                            <div class="input-field col s12">
+                                <select id="Role" name="Role">
+                                    <option value="" {% if not User.Role %}selected{% endif %} disabled>{{ __('User role') }}</option>
+                                    <option value="Admin" {% if 'Admin' === User.Role %}selected{% endif %}>{{ __('Admin') }}</option>
+                                    <option value="User" {% if 'User' === User.Role %}selected{% endif %}>{{ __('User') }}</option>
+                                </select>
+                                <label>{{ __('Role') }}</label>
+                            </div>
+                        {% endif %}
+                        <div class="input-field col s12">
+                            <input id="BirthDate" name="BirthDate" type="date" class="validate"
+                                   {% if User.BirthDate %}value="{{ User.BirthDate | date('Y-m-d')}}" {% endif %}>
+                            <label class="active" for="BirthDate">{{ __('Birth Date') }}</label>
+                        </div>
+                        {% if true === Company.Settings.Teams.Enabled %}
+                        <div class="input-field col s12">
+                            <select id="Team" name="Team">
+                            <option value="" {% if not User.Team %}selected{% endif %} disabled>{{ __("Choose your team") }}</option>
+                            {% for team in Company.Settings.Teams.List %}
+                            <option value="{{team}}" {% if team === User.Team %}selected{% endif %}>{{team}}</option>
+                            {% endfor %}
+                            </select>
+                            <label for="Team">{{ __("My Team") }}</label>
+                        </div>
+                        {% endif %}
+                        <div class="col s12 actions">
+                            <button id="DeleteEmployee" class="btn red darken-2 waves-effect waves-light delete_button" type="button" name="action">
+                                <i class="fa fa-trash"></i> {{ __("Delete Employee") }}
+                            </button>
+                            <button class="btn waves-effect waves-light save_button" type="submit" name="action">
+                                <i class="fa fa-check"></i> {{ __("Save") }}
+                            </button>
+                        </div>
+                        <div class="clear"></div>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+<form class="hide" method="post" enctype="multipart/form-data">
+    <input id="ProfileThumb" type="file" accept=".gif,.png,.jpg,.jpeg">
+</form>
+<script>
+    setTimeout(function () {
+        Materialize.updateTextFields();
+        $('select').material_select();
+
+        $('#EditPhone').intlTelInput({
+            preferredCountries: ['il', 'us'],
+            initialCountry: window.countryCode,
+            utilsScript: '/public/js/utils.js'
+        });
+        {% if true === ViewMode %}
+            $('#PhoneView').text($('#Phone').val());
+        {% endif %}
+    }, 1)
+</script>
+{% else %}
+    <div class="container single_user_page page_margin_top fade_in_up">
+        <div class="row">
+            <div class="col s12">
+                <div class="card">
+                    <div class="card-content middle-content">
+                        <div>
+                            <p style="font-size: 19px;">
+                                {{ __("Employee not found. or may be deleted") }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}

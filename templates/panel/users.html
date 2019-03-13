@@ -1,0 +1,121 @@
+<div class="container users_page page_margin_top fade_in_up">
+    <div class="row">
+        <div class="filters col s12">
+            {% if CanEditUsers %}
+            <div id="AddEmployeeButton" class="chip go_back">
+                <i class="fa fa-arrow-plus"></i>{{ __("Add Employee") }}
+            </div>
+            <div id="AddEmployeesButton" class="chip go_back">
+                <i class="fa fa-arrow-plus"></i>{{ __("Add Employees from CSV") }}
+            </div>
+            {% endif %}
+            <div class="card">
+                <div class="card-content">
+                    <div class="input-field col s12">
+                        <input id="SearchTerm" name="SearchTerm" type="text" value="{{Data.SearchTerm}}" placeholder="{{ __("John") }} {{ __("Smith") }}">
+                        <label for="SearchTerm" class="active">{{ __('Search employee') }}</label>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col s12 users_list">
+            <ul class="collection">
+                {% for user in Data.Users %}
+                <li class="collection-item avatar" data-link="#/employees/{{ user._id | replace({'"': '', '"': ''}) }}">
+                    <img src="{{user.Thumb}}" alt="" class="circle">
+                    <span class="title">{{user.FirstName}} {{user.LastName}}</span>
+                    {% if true === Company.Settings.Teams.Enabled %}
+                    <p class="grey-text">{{user.Team}}</p>
+                    {% endif %}
+                    {% if CanEditUsers %}<a data-link="#/employees/{{ user._id | replace({'"': '', '"': ''}) }}/edit" class="secondary-content"><i class="fa fa-pencil"></i></a>{% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% if Data.Pages && Data.Pages > 1 %}
+        <div class="col s12">
+            <div class="card">
+                <div class="card-content">
+                    <ul class="pagination">
+                        {% for Page in 1..Data.Pages %}
+                        <li {% if Page === Data.CurrentPage %}class="active"{% endif %}><a href="#/employees/?Page={{Page}}{% if Data.SearchTerm %}&SearchTerm={{Data.SearchTerm|escape('html')}}{% endif %}">{{Page}}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% if CanEditUsers %}
+<div id="AddEmployeeModal" class="modal">
+    <div class="modal-content">
+        <h4>{{ __("Add employee") }}</h4>
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="NewUserPhone" name="NewUserPhone" type="text" class="validate" value="{{ User.Phone }}" placeholder="{{ __('Phone') }}">
+                <input name="Phone" id="Phone" type="hidden">
+                <label class="active" for="Phone">{{ __('Phone') }}</label>
+            </div>
+            <div class="input-field col s12">
+                <input id="NewUserFirstName" name="NewUserFirstName" type="text" class="validate" value="{{ User.NewUserFirstName }}" placeholder="{{ __('Enter first name') }}">
+                <label class="active" for="NewUserFirstName">{{ __('First Name') }}</label>
+            </div>
+            <div class="input-field col s12">
+                <input id="NewUserLastName" name="NewUserLastName" type="text" class="validate" value="{{ User.NewUserLastName }}" placeholder="{{ __('Enter last name') }}">
+                <label class="active" for="NewUserLastName">{{ __('Last Name') }}</label>
+            </div>
+            <div class="clear"></div>
+            <ul class="collection success_errors">
+                <li class="error_message collection-item text-accent-4 red-text red lighten-4">Error brah</li>
+            </ul>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a class="modal-action modal-close waves-effect btn-flat">{{ __("Cancel") }}</a>
+        <a id="AddNewUserButton" class="modal-action waves-effect green-text btn-flat">{{ __("Add") }}</a>
+    </div>
+</div>
+<div id="AddEmployeesModal" class="modal">
+    <div class="modal-content">
+        <input class="hide" id="UploadEmployeesCSV" type="file">
+        <h4>{{ __("Add employees from CSV") }}</h4>
+        <a href="{{ __("EmployeesExampleFile") }}">
+            <p>{{  __("Download example CSV file") }}</p>
+        </a>
+        <p>
+            * {{ __("We strongly recommend to edit the CSV through") }}
+            <a href="https://sheets.google.com" title="Google sheets" target="_blank" rel="noreferrer noopener nofollow">
+                <i class="fa fa-external-link"></i>
+                Google sheets
+            </a>
+        </p>
+        <button id="UploadCSVGUIButton" class="btn waves-effect waves-light" type="submit" name="action" onclick="$('#UploadEmployeesCSV').click();">
+            <i class="fa fa-paperclip"></i> {{ __("Upload CSV") }}
+        </button>
+        <div class="row">
+            <div id="NewEmployeesList" class="hide">
+                <ul class="collection">
+
+                </ul>
+            </div>
+            <ul class="collection success_errors">
+                <li class="error_message collection-item text-accent-4 red-text red lighten-4"></li>
+            </ul>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a class="close_button modal-action modal-close waves-effect btn-flat">{{ __("Close") }}</a>
+        <a class="cancel_button modal-action modal-close waves-effect btn-flat">{{ __("Cancel") }}</a>
+        <a id="AddNewUsersButton" class="hide modal-action waves-effect green-text btn-flat">{{ __("Add") }}</a>
+    </div>
+</div>
+{% endif %}
+<script>
+    $('#NewUserPhone').intlTelInput({
+        preferredCountries: ['il', 'us'],
+        initialCountry: window.countryCode,
+        utilsScript: '/public/js/utils.js'
+    });
+</script>

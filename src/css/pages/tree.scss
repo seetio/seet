@@ -1,0 +1,279 @@
+.tree_page {
+    .save_section {
+        p {
+            float: left;
+        }
+
+        button {
+            float: right;
+        }
+    }
+
+    .tree_container {
+        padding-bottom: 20px;
+        overflow: auto;
+        min-height: 500px;
+
+        .tree ul {
+            padding-top: 20px; position: relative;
+            display: table;
+            transition: all 0.5s;
+            -webkit-transition: all 0.5s;
+            -moz-transition: all 0.5s;
+        }
+        
+        .tree > ul {
+            margin: auto;
+        }
+        
+        .tree li {
+            display: table-cell;
+            min-width: 50px;
+            text-align: center;
+            list-style-type: none;
+            position: relative;
+            padding: 20px 5px 0 5px;
+            vertical-align: top; // added recently
+
+            transition: all 0.5s;
+            -webkit-transition: all 0.5s;
+            -moz-transition: all 0.5s;
+        
+            &.edit {
+                min-width: 160px;
+
+                a {
+                    cursor: default;
+                    padding-top: 22px;
+                    padding-bottom: 22px;
+
+                    .fa {
+                        cursor: pointer;
+                    }
+                }
+            }
+
+            &:not(.edit) a .person_content {
+                display: table;
+
+                .thumb, .details {
+                    vertical-align: middle;
+                    display: table-cell;
+                }
+
+                .thumb {
+                    padding-right: 7px;
+
+                    img {
+                        vertical-align: middle;
+                        height: 20px;
+                        width: 20px;
+                        border-radius: 50%;
+                    }
+                }
+            }
+        }
+        
+        .tree li::before, .tree li::after{
+            content: '';
+            position: absolute; top: 0; right: 50%;
+            border-top: 1px solid #ccc;
+            width: 50%; height: 20px;
+        }
+        
+        .tree li::after{
+            right: auto; left: 50%;
+            border-left: 1px solid #ccc;
+        }
+        
+        .tree li:only-child::after, .tree li:only-child::before {
+            display: none;
+        }
+        
+        .tree li:only-child{ padding-top: 0;}
+        
+        .tree li:first-child::before, .tree li:last-child::after{
+            border: 0 none;
+        }
+        
+        .tree li:last-child::before{
+            border-right: 1px solid #ccc;
+            border-radius: 0 5px 0 0;
+            -webkit-border-radius: 0 5px 0 0;
+            -moz-border-radius: 0 5px 0 0;
+        }
+        
+        .tree li:first-child::after{
+            border-radius: 5px 0 0 0;
+            -webkit-border-radius: 5px 0 0 0;
+            -moz-border-radius: 5px 0 0 0;
+        }
+        
+        .tree ul ul::before{
+            content: '';
+            position: absolute; top: 0; left: 50%;
+            border-left: 1px solid #ccc;
+            width: 0; height: 20px;
+        }
+        
+        .tree li a{
+            position: relative;
+            border: 1px solid #ccc;
+            padding: 5px 10px;
+            text-decoration: none;
+            color: #666;
+            font-family: arial, verdana, tahoma;
+            font-size: 11px;
+            display: inline-block;
+            vertical-align: middle; // recently added;
+
+            border-radius: 5px;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            
+            transition: all 0.5s;
+            -webkit-transition: all 0.5s;
+            -moz-transition: all 0.5s;
+        }
+        
+        .tree li a .fa-trash {
+            position: absolute;
+            left: calc(50% - 3px);
+            top: 3px;
+        }
+
+        .tree li a .fa-arrow-left {
+            position: absolute;
+            left: 3px;
+            top: 47px;
+        }
+        
+        .tree li a .fa-arrow-right {
+            position: absolute;
+            right: 3px;
+            top: 47px;
+        }
+        
+        .tree li a .fa-arrow-down {
+            position: absolute;
+            left: calc(50% - 3px);
+            bottom: 3px;
+        }
+        
+        .tree li a input.name {
+            margin-bottom: 12px;
+        }
+        
+        .tree li a .job_title {
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .tree li a .job_title,
+        .tree li a .name {
+            width: 100%;
+            display: block;
+        }
+        
+        .tree li a input.job_title,
+        .tree li a input.name {
+            width: calc(100% - 20px);
+            font-size: 13px;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 13px;
+            padding: 3px 0px;
+            height: 20px;
+        }
+        
+        .tree li a { 
+            .selectize-input {
+                position: relative;
+            
+                div.item {
+                    position: absolute;
+                    padding: 4px 12px;
+                }
+            
+                input {
+                    width: calc(100% - 20px) !important;
+                    margin-left: auto;
+                    margin-right: auto;
+                    margin-bottom: 0;
+                    padding: 3px 0;
+                    height: 20px;
+                    font-size: 13px;
+                    position: relative !important;
+                    left: 0px !important;
+                    opacity: 1 !important;
+                }
+            }
+        
+            .selectize-dropdown {
+                background: #FFF;
+                padding: 5px;
+                border: 1px #d7d7d7 solid;
+                // width: calc(100% - 18px) !important;
+                width: initial !important;
+                text-align: left;
+                margin: 0 auto;
+                max-height: 200px;
+                overflow-y: auto;
+        
+                div {
+                    white-space: nowrap;
+                    padding: 2px 0;
+
+                    .thumb {
+                        display: inline-block;
+                        vertical-align: middle;
+                        
+                        img {
+                            width: 27px;
+                            height: 27px;
+                            border-radius: 50%;
+                            vertical-align: middle;
+                        }
+                    }
+                    
+                    .name {
+                        width: initial;
+                        display: inline-block;
+                        vertical-align: middle;
+                        padding-left: 10px;
+                        font-weight: 500;
+                    }
+                }
+            }
+        }
+        
+        .tree li a:hover, .tree li a:hover+ul li a {
+            background: #c8e4f8; color: #000; border: 1px solid #94a0b4;
+        }
+        
+        .tree li a:hover+ul li::after, 
+        .tree li a:hover+ul li::before, 
+        .tree li a:hover+ul::before, 
+        .tree li a:hover+ul ul::before{
+            border-color:  #94a0b4;
+        }
+    }
+    
+    .go_edit_tree,
+    .go_view_tree {
+        float: right;
+        cursor: pointer;
+
+        i {
+            margin-right: 7px;
+        }
+    }
+
+    .go_view_tree {
+        float: left;
+    }
+
+    .no_results {
+        font-size: 21px;
+    }
+}

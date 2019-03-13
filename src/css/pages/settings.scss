@@ -1,0 +1,103 @@
+.settings_page {
+    .collection {
+        overflow: visible;
+
+        .toggle_btn {
+            padding: 24px 0px 0 0;
+            float: right;
+    
+            .switch label input[type=checkbox]:checked+.lever {
+                background-color: #bfddff;
+            }
+    
+            .switch label input[type=checkbox]:checked+.lever:after {
+                background-color: #1565c0;
+            }
+        }
+    
+        .collection-item {
+            position: relative;
+    
+            &.disabled:after {
+                content: '';
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0;
+                background: rgba(255,255,255,0.8);
+                z-index: 1;
+            }
+    
+            .teams {
+                .input-field input {
+                    height: 33px;
+                    margin-bottom: 7px;
+                }
+                
+                .btn-floating {
+                    height: 30px;
+                    width: 30px;
+        
+                    i {
+                        font-size: 17px;
+                        line-height: 32px;
+                        vertical-align: top;
+                    }
+                }
+            }
+    
+            .add_team_container {
+                margin-top: 15px;
+            }
+
+            .selectize-control {
+                .selectize-input {
+                    border: none;
+                    box-shadow: none;
+                    border-bottom: 1px color("grey", "base") solid;
+                }
+
+                .selectize-input.dropdown-active {
+                    -webkit-border-radius: 0;
+                    -moz-border-radius: 0;
+                    border-radius: 0;
+                }
+                
+                .selectize-input.focus {
+                    -webkit-box-shadow: none;
+                    box-shadow: none;
+                }
+
+                .selectize-dropdown-content {
+                    .thumb {
+                        display: inline-block;
+                        vertical-align: middle;
+                        margin-right: 13px;
+    
+                        img {
+                            width: 30px;
+                            height: 30px;
+                            border-radius: 50%;
+                        }
+                    }
+    
+                    .name {
+                        display: inline-block;
+                    }
+                }
+            }
+
+          &.change_logo {
+            .input-field {
+              text-align: center;
+
+              button.btn {
+                height: 3rem;
+              }
+            }
+          }
+
+        }
+    }
+}

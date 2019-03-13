@@ -1,0 +1,325 @@
+<div class="container settings_page page_margin_top fade_in_up">
+    <div class="row">
+        <div class="col s12 card">
+            <ul class="tabs settings_tabs">
+                <li class="tab col s3"><a class="active" href="#SettingsGeneral">{{ __("General") }}</a></li>
+                <li class="tab col s3"><a href="#SettingsModules">{{ __("Modules") }}</a></li>
+                <!-- <li class="tab col s3 disabled"><a href="#test3">Disabled Tab</a></li> -->
+            </ul>
+        </div>
+        <div class="clear"></div>
+        <form id="SettingsForm">
+            <div id="SettingsGeneral">
+                <ul class="collection with-header card">
+                    <li class="collection-header">
+                        <div class="toggle_btn">
+                            <div class="switch">
+                                <label>
+                                {{ __("Off") }}
+                                <input id="ToggleTeamsEdit" data-targetdiv="#TeamList" type="checkbox" {% if true === Company.Settings.Teams.Enabled %}checked{% endif %}>
+                                <span class="lever"></span>
+                                {{ __("On") }}
+                                </label>
+                            </div>
+                        </div>
+                        <h4>
+                            {{ __("Employee's teams") }}
+                        </h4>
+                        <span class="grey-text">
+                            {{ __("In case your company is too wide and the feed or gallery won't be relevant for all emoloyees, you can create groups, set group names, and then attach employees to a group from employee's edit page") }}
+                            <br>
+                            {{ __("i.e - a company with one huge branch - team for each department . or huge company with many branches - team for each branch") }}
+                        </span>
+                    </li>
+                    <li class="collection-item {% if true !== Company.Settings.Teams.Enabled %}disabled{% endif %}" id="TeamList">
+                        <p>{{ __("Avilable teams") }}</p>
+                        <div class="teams">
+                            {% if Company.Settings.Teams.List && Company.Settings.Teams.List.length %}
+                                {% for team in Company.Settings.Teams.List %}
+                                    <div class="team">
+                                        <div class="input-field col s11">
+                                            <input class="edit_single_team_name" value="{{team}}" name="Teams" type="text" placeholder='{{ __("Team name") }}'>
+                                        </div>
+                                        {% if 1 < loop.index%}
+                                        <div class="input-field col s1">
+                                            <a class="delete_team_row btn-floating red darken-2 waves-effect waves-light"><i class="fa fa-trash"></i></a>
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                            <div class="team">
+                                <div class="input-field col s11">
+                                    <input class="edit_single_team_name" name="Teams" type="text" placeholder='{{ __("Team name") }}'>
+                                </div>
+                            </div>
+                            {% endif %}
+                            <div class="clear"></div>
+                            <div class="row add_team_container">
+                                <div class="col s12 center-align">
+                                    <a id="AddTeamRow" class="btn-floating green waves-effect waves-light"><i class="fa fa-plus"></i></a> {{ __("Add team") }}
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="collection with-header card">
+                    <li class="collection-header">
+                        <h4>
+                            {{ __("System language") }}
+                        </h4>
+                    </li>
+                    <li class="collection-item">
+                        <div class="input-field col s12">
+                            <select id="ChangeLanguage" name="Lang">
+                                <option value="en" {{'en' === locale?'selected':''}}>{{ __("English") }}</option>
+                                <option value="he" {{'he' === locale?'selected':''}}>{{ __("Hebrew") }}</option>
+                            </select>
+                            <label>{{ __("Set system language") }}</label>
+                        </div>
+                        <div class="clear"></div>
+                    </li>
+                </ul>
+                <ul class="collection with-header card">
+                    <li class="collection-header">
+                        <h4>
+                            {{ __("Company logo") }}
+                        </h4>
+                    </li>
+                    <li class="collection-item change_logo">
+                        <div class="file-field input-field col s12 m6">
+                            <div class="btn">
+                                <span>{{ __("File") }}</span>
+                                <input id="NewCompanyLogoImage" type="file" data-error="Ashkentoz">
+                            </div>
+                            <div class="file-path-wrapper">
+                                <input class="file-path validate" type="text" placeholder="{{ __("Select your document file") }}">
+                            </div>
+                        </div>
+                        <div class="input-field col s3">
+                            <button id="UpdateCompanyLogo" class="btn" type="button">
+                                <i class="fa fa-upload"></i>
+                                {{ __("Upload image") }}
+                            </button>
+                        </div>
+                        {% if Company.Settings.CustomLogo %}
+                        <div class="input-field col s3">
+                            <button id="DeleteCompanyLogo" class="btn red darken-4" type="button">
+                                <i class="fa fa-trash"></i>
+                                {{ __("Delete existing") }}
+                            </button>
+                        </div>
+                        {% endif %}
+                        <div class="clear"></div>
+                        <span id="NewLogoError" class="hide red-text">not good</span>
+                    </li>
+                </ul>
+            </div>
+            <div id="SettingsModules">
+                <ul class="collection with-header card">
+                    <li class="collection-header">
+                        <h4>
+                            {{ __("Feed") }}
+                        </h4>
+                    </li>
+                    <li id="FeedEditorsCon" class="collection-item enable-selectize {% if true !== Company.Settings.Modules.Feed.Enabled %}disabled{% endif %}">
+                        <p>{{ __("Employees that can manage all posts in homepage") }}</p>
+                        <input id="FeedEditors" value="{{Company.Settings.Modules.Feed.Editors|join(',')}}" name="FeedEditors" type="text" placeholder="{{ __("Type employee name") }}">
+                    </li>
+                </ul>
+
+                <ul class="collection with-header card">
+                    <li class="collection-header">
+                        <h4>
+                            {{ __("Employees") }}
+                        </h4>
+                    </li>
+                    <li id="EmployeesEditorsCon" class="collection-item enable-selectize">
+                        <p>{{ __("Employees that can manage this module") }}</p>
+                        <input id="EmployeesEditors" value="{{Company.Settings.Modules.Employees.Editors|join(',')}}" name="EmployeesEditors" type="text" placeholder="{{ __("Type employee name") }}">
+                    </li>
+                </ul>
+
+                <ul class="collection with-header card">
+                    <li class="collection-header">
+                        <div class="toggle_btn">
+                            <div class="switch">
+                                <label>
+                                {{ __("Off") }}
+                                <input id="ToggleGalleryModule" data-targetdiv="#GalleryEditorsCon" type="checkbox" {% if true === Company.Settings.Modules.Gallery.Enabled %}checked{% endif %}>
+                                <span class="lever"></span>
+                                {{ __("On") }}
+                                </label>
+                            </div>
+                        </div>
+                        <h4>
+                            {{ __("Gallery") }}
+                        </h4>
+                    </li>
+                    <li id="GalleryEditorsCon" class="collection-item enable-selectize {% if true !== Company.Settings.Modules.Gallery.Enabled %}disabled{% endif %}">
+                        <p>{{ __("Employees that can manage this module") }}</p>
+                        <input id="GalleryEditors" value="{{Company.Settings.Modules.Gallery.Editors|join(',')}}" name="GalleryEditors" type="text" placeholder="{{ __("Type employee name") }}">
+                    </li>
+                </ul>
+
+                <ul class="collection with-header card">
+                    <li class="collection-header">
+                        <div class="toggle_btn">
+                            <div class="switch">
+                                <label>
+                                {{ __("Off") }}
+                                <input id="ToggleCalendarModule" data-targetdiv="#CalendarEditorsCon" type="checkbox" {% if true === Company.Settings.Modules.Calendar.Enabled %}checked{% endif %}>
+                                <span class="lever"></span>
+                                {{ __("On") }}
+                                </label>
+                            </div>
+                        </div>
+                        <h4>
+                            {{ __("Calendar") }}
+                        </h4>
+                    </li>
+                    <li id="CalendarEditorsCon" class="collection-item enable-selectize {% if true !== Company.Settings.Modules.Calendar.Enabled %}disabled{% endif %}">
+                        <p>{{ __("Employees that can manage this module") }}</p>
+                        <input id="CalendarEditors" value="{{Company.Settings.Modules.Calendar.Editors|join(',')}}" name="CalendarEditors" type="text" placeholder="{{ __("Type employee name") }}">
+                    </li>
+                </ul>
+
+                <ul class="collection with-header card">
+                    <li class="collection-header">
+                        <div class="toggle_btn">
+                            <div class="switch">
+                                <label>
+                                {{ __("Off") }}
+                                <input id="ToggleTreeModule" data-targetdiv="#TreeEditorsCon" type="checkbox" {% if true === Company.Settings.Modules.Tree.Enabled %}checked{% endif %}>
+                                <span class="lever"></span>
+                                {{ __("On") }}
+                                </label>
+                            </div>
+                        </div>
+                        <h4>
+                            {{ __("Company Tree") }}
+                        </h4>
+                    </li>
+                    <li id="TreeEditorsCon" class="collection-item enable-selectize {% if true !== Company.Settings.Modules.Tree.Enabled %}disabled{% endif %}">
+                        <p>{{ __("Employees that can manage this module") }}</p>
+                        <input id="TreeEditors" value="{{Company.Settings.Modules.Tree.Editors|join(',')}}" name="TreeEditors" type="text" placeholder="{{ __("Type employee name") }}">
+                    </li>
+                </ul>
+
+                <ul class="collection with-header card">
+                    <li class="collection-header">
+                        <div class="toggle_btn">
+                            <div class="switch">
+                                <label>
+                                {{ __("Off") }}
+                                <input id="ToggleNotesModule" data-targetdiv="#NotesEditorsCon" type="checkbox" {% if true === Company.Settings.Modules.Notes.Enabled %}checked{% endif %}>
+                                <span class="lever"></span>
+                                {{ __("On") }}
+                                </label>
+                            </div>
+                        </div>
+                        <h4>
+                            {{ __("Important Notes") }}
+                        </h4>
+                    </li>
+                    <li id="NotesEditorsCon" class="collection-item enable-selectize {% if true !== Company.Settings.Modules.Notes.Enabled %}disabled{% endif %}">
+                        <p>{{ __("Employees that can manage this module") }}</p>
+                        <input id="NotesEditors" value="{{Company.Settings.Modules.Notes.Editors|join(',')}}" name="NotesEditors" type="text" placeholder="{{ __("Type employee name") }}">
+                    </li>
+                </ul>
+
+                <ul class="collection with-header card">
+                    <li class="collection-header">
+                        <div class="toggle_btn">
+                            <div class="switch">
+                                <label>
+                                {{ __("Off") }}
+                                <input id="ToggleDocumentsModule" data-targetdiv="#DocumentsEditorsCon" type="checkbox" {% if true === Company.Settings.Modules.Documents.Enabled %}checked{% endif %}>
+                                <span class="lever"></span>
+                                {{ __("On") }}
+                                </label>
+                            </div>
+                        </div>
+                        <h4>
+                            {{ __("Documents") }}
+                        </h4>
+                    </li>
+                    <li id="DocumentsEditorsCon" class="collection-item enable-selectize {% if true !== Company.Settings.Modules.Documents.Enabled %}disabled{% endif %}">
+                        <p>{{ __("Employees that can manage this module") }}</p>
+                        <input id="DocumentsEditors" value="{{Company.Settings.Modules.Documents.Editors|join(',')}}" name="DocumentsEditors" type="text" placeholder="{{ __("Type employee name") }}">
+                    </li>
+                </ul>
+
+                <ul class="collection with-header card">
+                    <li class="collection-header">
+                        <div class="toggle_btn">
+                            <div class="switch">
+                                <label>
+                                {{ __("Off") }}
+                                <input id="ToggleShiftsModule" data-targetdiv="#ShiftsEditorsCon" type="checkbox" {% if true === Company.Settings.Modules.Shifts.Enabled %}checked{% endif %}>
+                                <span class="lever"></span>
+                                {{ __("On") }}
+                                </label>
+                            </div>
+                        </div>
+                        <h4>
+                            {{ __("Shifts") }}
+                        </h4>
+                    </li>
+                    <li id="ShiftsEditorsCon" class="collection-item enable-selectize {% if true !== Company.Settings.Modules.Shifts.Enabled %}disabled{% endif %}">
+                        <p>{{ __("Employees that can manage this module") }}</p>
+                        <input id="ShiftsEditors" value="{{Company.Settings.Modules.Shifts.Editors|join(',')}}" name="ShiftsEditors" type="text" placeholder="{{ __("Type employee name") }}">
+                    </li>
+                </ul>
+
+                <!-- <ul class="collection with-header card">
+                    <li class="collection-header">
+                        <div class="toggle_btn">
+                            <div class="switch">
+                                <label>
+                                {{ __("Off") }}
+                                <input type="checkbox" {% if true === Company.Settings.Modules.Chat.Enabled %}checked{% endif %}>
+                                <span class="lever"></span>
+                                {{ __("On") }}
+                                </label>
+                            </div>
+                        </div>
+                        <h4>
+                            {{ __("Chat") }}
+                        </h4>
+                    </li>
+                    <li class="collection-item">
+                        Amazing stuff
+                    </li>
+                </ul> -->
+
+                <!-- <ul class="collection with-header card">
+                    <li class="collection-header">
+                        <div class="toggle_btn">
+                            <div class="switch">
+                                <label>
+                                {{ __("Off") }}
+                                <input id="ToggleDiscountsModule" type="checkbox">
+                                <span class="lever"></span>
+                                {{ __("On") }}
+                                </label>
+                            </div>
+                        </div>
+                        <h4>
+                            {{ __("Discounts") }}
+                        </h4>
+                    </li>
+                    <li class="collection-item">
+                        Amazing stuff
+                    </li>
+                </ul> -->
+            </div>
+        </form>
+        <!-- <div id="test3" class="col s12">Test 3</div> -->
+    </div>
+    <script>
+        $('.settings_tabs').tabs();
+        $('select').material_select();
+        window.employees = {% autoescape false %}{{ employees }}{% endautoescape %};
+    </script>
+</div>

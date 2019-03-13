@@ -1,0 +1,80 @@
+{% if gallery._id %}
+<div class="gallery_page page_margin_top">
+    <div class="container">
+        <div class="row">
+            <div class="chip go_back" onclick="history.back()">
+                <i class="fa fa-arrow-left rotatable"></i>{{ __("Back") }}
+            </div>
+            {% if true ===  CanEditGallery %}
+            <div class="chip go_edit_gallery" onclick="location.href=location.hash+'/edit'">
+                <i class="fa fa-pencil"></i>{{ __("Edit gallery") }}
+            </div>
+            {% endif %}
+            <div class="clear"></div>
+            <div class="card">
+                <div class="card-content">
+                    {% if gallery.Title %}
+                    <h3>{{ gallery.Title }}</h3>
+                    {% else %}
+                    <h3>{{ __("Gallery without name") }}</h3>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-content">
+                    <div class="col s12">
+                        {% for image in gallery.Images %}
+                        {% if true === IsVideo(image) %}
+                        {% set video = image|split('.') %}
+                        <div style="display:none;" id="video{{loop.index}}">
+                            <video class="lg-video-object lg-html5 video-js vjs-default-skin" controls preload="none">
+                                <source src="{{endpoint}}/{{image}}" type="video/mp4">
+                                Your browser does not support HTML5 video.
+                            </video>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                        <div id="responsive-images">
+                            {% for image in gallery.Images %}
+                            {% if true === IsVideo(image) %}
+                            {% set video = image|split('.') %}
+                            <a class="pointer video" data-poster="{{endpoint}}/150{{video[0]}}.jpg" data-html="#video{{loop.index}}" >
+                                <img class="card" src="{{endpoint}}/150{{video[0]}}.jpg" />
+                            </a>
+                            {% else %}
+                            <a href="{{endpoint}}/{{image}}">
+                                <img class="card" src="{{endpoint}}/150{{image}}" />
+                            </a>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('#responsive-images').lightGallery({
+        hash: false,
+        share: false,
+        videojs: true
+    });
+</script>
+{% else %}
+<div class="container gallery_page page_margin_top fade_in_up">
+    <div class="row">
+        <div class="col s12">
+            <div class="card">
+                <div class="card-content middle-content">
+                    <div>
+                        <p style="font-size: 19px;">
+                            {{ __("Gallery not found") }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}

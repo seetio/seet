@@ -1,0 +1,112 @@
+.calendar_page {
+    #calendar {
+        .fc-row {
+            td:hover {
+                cursor: pointer;
+                background-color: rgba(72, 72, 72, 0.03);
+            }
+        }
+    }
+
+    .agenda {
+        .side_title {
+            margin: 5px 0 33px 0;
+        }
+
+        .day_seperator {
+            margin: 17px 0 2px 0;
+            color: #C4C4C4;
+            display: block;
+            position: relative;
+            text-align: center;
+            font-size: 12px;
+        }
+
+        .single_event {
+            font-size: 13px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+
+            .time {
+                margin-right: 4px;
+            }
+        }
+
+        .day_seperator:before,
+        .day_seperator:after {
+            display: initial;
+            content: '';
+            position: absolute;
+            width: calc(50% - 42px);
+            background: #C4C4C4;
+            top: 9px;
+            left: 0;
+            height: 1px;
+        }
+        
+        .day_seperator:after {
+            left: initial;
+            right: 0;
+        }
+    }
+}
+
+#editEventPopover {
+    background: #f9f9f9;
+    z-index: 10;
+
+    .row {
+        margin-bottom: 0;
+
+        .title {
+            background: $secondary-color;
+            color: #FFF;
+            padding: 4px 0.75rem;
+            margin-bottom: 7px;
+            font-size: 12px;
+
+            .event_time {
+                font-weight: bold;
+            }
+        }
+
+        input {
+            height: 27px;
+
+            &:eq(0) {
+                margin-bottom: 10px;
+            }
+        }
+
+        .fa-close {
+            float: right;
+            padding: 2px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .actions {
+            text-align: center;
+            margin-bottom: 20px;
+
+            .btn {
+                padding: 0 1.3em;
+                height: 27px;
+                line-height: 27px;
+            }
+
+            .hidable {
+                float: right;
+            }
+
+            .close-btn {
+                float: left;
+            }
+
+            #delCalEvent {
+                float: none;
+            }
+        }
+    }
+}

@@ -1,0 +1,15 @@
+<li class="note" data-note="{{ note._id | replace({'"': '', '"': ''}) }}">
+    <div class="collapsible-header">
+        <span class="title"><b>{{ note.Title }}</b></span>
+        {% if CanEditNotes %}
+            <button class="edit_important_note btn-flat">
+                <i class="fa fa-pencil"></i>
+            </button>
+        {% endif %}
+    </div>
+    <div class="collapsible-body">
+        <p class="content">
+            {{ note.Note | nl2br | Linkify }}
+        </p>
+    </div>
+</li>

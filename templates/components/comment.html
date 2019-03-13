@@ -1,0 +1,33 @@
+<div class="comment" data-comment="{{comment._id | replace({'"': '', '"': ''})}}">
+    <div>
+        <img class="thumb" src="{{ comment.User[0].Thumb | Thumb(s3, Company._id + '/') }}" alt="">
+    </div>
+    <div>
+        <div class="name_date">
+            {% if CanEditFeed || IsEqualStrings(comment.User[0]._id, User._id) %}
+                <button class="btn-flat dropdown-button grey-text" data-activates='drpdwn{{comment._id | replace({'"': '', '"': ''})}}'>
+                    <i class="fa fa-caret-down" aria-hidden="true"></i>
+                </button>
+                <ul id='drpdwn{{comment._id | replace({'"': '', '"': ''})}}' class='dropdown-content'>
+                    <li>
+                        <a class="edit_message" data-type="comment" data-id="{{comment._id | replace({'"': '', '"': ''})}}">
+                        {{ __("Edit") }}
+                        </a>
+                    </li>
+                    <li>
+                        <a class="delete_comment" data-comment="{{comment._id | replace({'"': '', '"': ''})}}">
+                            {{ __("Delete Comment") }}
+                        </a>
+                    </li>
+                </ul>
+            {% endif %}
+            <a class="name" href="#/employees/{{comment.User[0]._id | replace({'"': '', '"': ''})}}">
+                <h5>{{comment.User[0].FirstName}} {{comment.User[0].LastName}}</h5>
+            </a>
+            <p class="date grey-text darken-5">{{comment.Date | date('m/d/y H:i:s')}}</p>
+        </div>
+        <div class="comment_content">
+            {{ comment.Comment | nl2br | Linkify  }}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,52 @@
+<div class="container notes_page page_margin_top fade_in_up">
+    <div class="row">
+        <div class="col s12">
+            {% if CanEditNotes %}
+                <div id="AddNewImportantNote" class="chip">
+                    <i class="fa fa-plus"></i>{{ __("Add Note") }}
+                </div>
+            {% endif %}
+            <div class="clear"></div>
+            <ul class="collapsible popout notes_container" data-collapsible="accordion">
+                {% for note in notes %}
+                    {% include 'components/note.html' %}
+                {% endfor %}
+            </ul>
+            <div class="no_results card center-align hide">
+                <div class="card-content">
+                    😓
+                    <p>{{ __("No messages yet ") }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $('.collapsible').collapsible();
+        $('select').material_select();
+    </script>
+</div>
+<div id="AddEditNoteModal" class="modal">
+    <div class="modal-content">
+        <div class="row">
+            <div class="col s12">
+                <h4 class="edit">{{ __("Edit note") }}</h4>
+                <h4 class="add">{{ __("Add note") }}</h4>
+            </div>
+            <div class="input-field col s12">
+                <input id="ImportantNoteTitle" type="text" class="validate" value="" placeholder='{{ __("Eating in meeting room") }}'>
+                <label class="active" for="ImportantNoteTitle">{{ __('Note title') }}</label>
+            </div>
+            <div class="clear"></div>
+            <div class="input-field col s12" style="margin-top: 27px;">
+                <textarea id="ImportantNoteContent" class="materialize-textarea validate" value="" placeholder='{{ __("Eating in meeting room if forbidden from now on") }}'></textarea>
+                <label class="active" for="ImportantNoteContent">{{ __('Note Content') }}</label>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a class="modal-action modal-close waves-effect btn-flat">{{ __("Cancel") }}</a>
+        <a id="SubmitDeleteImportantNote" class="edit modal-action waves-effect red-text btn-flat">{{ __("Delete") }}</a>
+        <a id="SubmitAddNewImportantNote" class="add modal-action waves-effect green-text btn-flat">{{ __("Add") }}</a>
+        <a id="SubmitEditImportantNote" class="edit modal-action waves-effect green-text btn-flat">{{ __("Save") }}</a>
+    </div>
+</div>

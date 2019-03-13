@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block header %}
+    <link rel="stylesheet" href="/public/css/styles{% if IsRtl %}-rtl{% endif %}.min.css" />
+{% endblock %}
+{% block scripts %}
+    <script src="/public/js/bundle.min.js?v=0.0.1"></script>
+{% endblock %}
+{% block head_class %}full_height{% endblock %}
+{% block body_class %}full_height{% endblock %}
+{% block body %}
+    <div class="login_page">
+        <div class="row overall">
+            <div class="col s12 m6 hide-on-small-only featured_image">
+            </div>
+            <div class="col s12 m6 login_form">
+                <div>
+                    <div class="card col s12 m8">
+                        <div class="card-content">
+                            {{ __("WELCOME - LOGIN") }}
+                            <span class="sub_title grey-text">
+                                {{ __("Enter you phone number below") }}
+                            </span>
+                        </div>
+                        <div class="card-content">
+                            <form id="LoginForm" action="" method="post">
+                                <div class="input-field col s12">
+                                    <input id="Phone" name="Phone" type="tel">
+                                </div>
+                                <ul class="collection success_errors hide">
+                                    <li class="fill_all collection-item text-accent-4 red-text red lighten-4">{{ __('Please enter valid phone number') }}</li>
+                                    <li class="error collection-item text-accent-4 red-text red lighten-4"></li>
+                                    <li class="success collection-item text-darken-4 green-text green lighten-4">{{ __('Moving to next step...') }}</li>
+                                </ul>
+                                <div class="clear"></div>
+                                <div class="actions_container col s12">
+                                    <button id="LoginButton" class="btn waves-effect waves-light" type="submit" name="action">
+                                        {{ __("Login") }} <i class="fa fa-paper-plane"></i>
+                                    </button>
+                                    <div class="preloader-wrapper small active hide">
+                                        <div class="spinner-layer">
+                                            <div class="circle-clipper left">
+                                                <div class="circle"></div>
+                                            </div><div class="gap-patch">
+                                            <div class="circle"></div>
+                                        </div><div class="circle-clipper right">
+                                            <div class="circle"></div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clear"></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="TOS" class="modal">
+        <div class="modal-content">
+        </div>
+        <div class="modal-footer">
+            <a class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+        </div>
+    </div>
+    <script>
+        var locale = "{{ locale }}";
+        var countryCode = "{{ countryCode }}";
+    </script>
+{% endblock %}

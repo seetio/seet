@@ -1,0 +1,53 @@
+<div class="tree_page page_margin_top fade_in_up">
+    <div class="container">
+        <div class="row">
+            {% if true !== EditMode && CanEditTree %}
+                <div class="chip go_edit_tree" onclick="location.href=location.hash+'/edit'">
+                    <i class="fa fa-pencil"></i>{{ __("Edit Tree") }}
+                </div>
+            {% endif %}
+            {% if true === EditMode && CanEditTree %}
+                <div class="chip go_view_tree" onclick="location.href=location.hash.replace('/edit','')">
+                    <i class="fa fa-arrow-left rotatable"></i>{{ __("Back") }}
+                </div>
+            {% endif %}
+            <div class="col s12 card save_section hide">
+                <div class="card-content">
+                    <p style="line-height: 36px;">
+                        {{ __("Don't forget to save the tree") }}
+                    </p>
+                    <button id="SaveTree" class="btn waves-effect waves-light" type="submit" name="action">
+                            {{ __("Save Tree")  }}<i class="fa fa-check"></i>
+                    </button>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="col s12 card tree_container">
+                <div class="tree">
+                    <ul>
+                    </ul>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+            <div class="no_results card center-align hide">
+                <div class="card-content">
+                    😓
+                    <p>{{ __("Tree is empty ") }}</p>
+                </div>
+            </div>
+            <script>
+                {% if employeesTree %}
+                    window.emplyeeData = {% autoescape false %}{{ employeesTree }}{% endautoescape %};
+                {% else %}
+                    window.emplyeeData = [];
+                {% endif %}
+                {% if employees %}
+                    window.employees = {% autoescape false %}{{ employees }}{% endautoescape %};
+                {% else %}
+                    window.employees = [];
+                {% endif %}
+            </script>
+        </div>
+    </div>
+</div>

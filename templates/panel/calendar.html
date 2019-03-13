@@ -1,0 +1,31 @@
+<div class="calendar_page page_margin_top fade_in_up">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 l9">
+                <div class="card">
+                    <div class="card-content">
+                        <div id="calendar"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col s3 hide-on-med-and-down">
+                <div class="agenda card">
+                    <div class="card-content">
+                        <h5 class="side_title">{{ __("Agenda") }}</h5>
+                        <div class="no_agenda grey-text">
+                            {{ __("No upcoming agenda") }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    {% if calendarEvents %}
+        window.calendarEvents = {% autoescape false %}{{ calendarEvents }}{% endautoescape %};
+    {% else %}
+        window.calendarEvents = [];
+    {% endif %}
+    window.canEditCalendar = {{CanEditCalendar}};
+</script>

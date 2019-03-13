@@ -1,0 +1,164 @@
+<div class="container home_page page_margin_top fade_in_up">
+    <div class="row">
+        <div class="col s3 hide-on-med-and-down side_bar start">
+            <div class="row">
+                <div class="col s12">
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="date">
+                                <div>
+                                    <div id="NowMonth" class="month">JUL</div>
+                                    <div id="NowDay" class="day">14</div>
+                                </div>
+                                <div>
+                                    <!-- <div id="NowYear" class="year">2014</div> -->
+                                    <div id="NowTime" class="time">00:00:00</div>
+                                </div>
+                            </div>
+                            <!--<p>-->
+                                <!--staying late tonight?-->
+                            <!--</p>-->
+                        </div>
+                    </div>
+                    {% if birthdays.length %}
+                        <div class="card">
+                            <div class="card-content">
+                                <h4 class="title">{{ __("Save the cake") }} 🎂</h4>
+                                {% for birthday in birthdays %}
+                                <p>
+                                    {{ birthday.BirthDate | date('d.m') }} - {{ birthday.FirstName }} {{ birthday.LastName }}
+                                </p>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% if agenda.length %}
+                    <div class="card">
+                        <div class="card-content">
+                            <h4 class="title">Upcoming Agenda</h4>
+                            {% for event in agenda %}
+                                <p>
+                                    {{ event.start | date('H:i') }} - {{ event.title }}
+                                </p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+                    {#
+                    <div class="card">
+                        <div class="card-content">
+                            <h4 class="title">Employee of the month</h4>
+                            <p>
+                                Please, congrats to Bar!
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-content">
+                            <h4 class="title">Recognizing the employee?</h4>
+                            <p>
+                                "I play overwatch for at least 7 hours a week"
+                            </p>
+                        </div>
+                    </div>
+                    #}
+                </div>
+            </div>
+        </div>
+        <div class="col s12 m12 l6">
+            <div class="row">
+                <div class="col s12">
+                    <div class="card">
+                        <div class="publish_post_container card-content">
+                            <textarea id="NewPostContent" placeholder="{{ __("Who also in mood to hang after work??") }}"></textarea>
+                            <div class="media">
+                                <div class="preloader-wrapper small active hide">
+                                    <div class="spinner-layer">
+                                    <div class="circle-clipper left">
+                                        <div class="circle"></div>
+                                    </div><div class="gap-patch">
+                                        <div class="circle"></div>
+                                    </div><div class="circle-clipper right">
+                                        <div class="circle"></div>
+                                    </div>
+                                    </div>
+                                </div>
+                                <div class="image_preview hide">
+                                    <img src="">
+                                </div>
+                                <div class="video_preview hide">
+                                    <video id="NewPostVideo" class="video-js" controls preload="auto">
+                                        <source src="" type="">
+                                    </video>
+                                </div>
+                            </div>
+                            <div class="actions">
+                                <div class="errors red-text hide"></div>
+                                <button id="AddNewPostMediaButton" class="btn white grey-text lighten-5 waves-effect" type="submit" name="action"
+                                    onclick="$('#NewPostMediaFile').click();">
+                                    <i class="fa fa-image"></i> {{ __("add image / video") }}
+                                </button>
+                                <button id="PublishPost" class="btn waves-effect waves-light" type="submit" name="action">
+                                    <i class="fa fa-send"></i> {{ __("Post") }}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="posts_container">
+                        {% for post in Posts %}
+                            {% include 'components/post.html' %}
+                        {% endfor %}
+                        <div class="card single_post no_results hide" data-post="{{post._id | replace({'"': '', '"': ''})}}">
+                            <div class="card-content">
+                                <div class="post_title">
+                                    <div>
+                                        <div class="thumb white-text blue lighten-2">
+                                            S
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <a>
+                                            <h5 class="name">SEET</h5>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="post_content">
+                                    {{ __("Hello! it's the perfect time to publish your first post in seet!") }}<br>
+                                    {{ __("Afterwards, when you see the that everything works properly, please go into employees tab, and then import an CSV file of your employees in order to register them all at once!") }}<br>
+                                    {{ __("Feel free to explore the application by overviewing the pages in the side bar. ") }}<br>
+                                    {{ __("Until then, Homer will wait. and he is not that excited as us!") }}<br>
+                                </div>
+                                <div class="post_media">
+                                    <img class="thumb" src="/img/simpson.gif" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col s4 l3 hide-on-small-only side_bar end hide">
+            <div class="row">
+                <div class="col s12">
+                    <div class="card">
+                        <div class="card-content">
+                            SOOOO
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+<input class="hide" type="file" id="NewPostMediaFile">
+<div id="EditMessageModal" class="modal">
+    <div class="modal-content">
+        <h4>{{ __("Edit message") }}</h4>
+        <textarea id="EditedMessageContent" class="materialize-textarea validate"></textarea>
+    </div>
+    <div class="modal-footer">
+        <a id="SaveEditedMessage" class="waves-effect waves-green">{{ __("Save") }}</a>
+        <a class="modal-action modal-close waves-effect waves-green btn-flat">{{ __("Close") }}</a>
+    </div>
+</div>

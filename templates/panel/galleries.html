@@ -1,0 +1,29 @@
+<div id="GalleriesPage" class="gallery_page page_margin_top fade_in_up">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 create_new">
+                <button id="CreateNewAlbum" class="btn waves-effect waves-light" type="submit" name="action">
+                        {{ __("Create New") }}<i class="fa fa-plus"></i>
+                </button>
+            </div>
+            <div class="clear"></div>
+            <div class="no_results card center-align hide">
+                <div class="card-content">
+                    😓
+                    <p>{{ __("No Galleries yet ") }}</p>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="galleries_container">
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    {% if galleries %}
+        window.galleries = {% autoescape false %}{{ galleries }}{% endautoescape %};
+    {% else %}
+        window.galleries = [];
+    {% endif %}
+</script>

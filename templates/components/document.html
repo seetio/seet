@@ -1,0 +1,19 @@
+<li class="collection-item document" data-document="{{ document._id | replace({'"': '', '"': ''}) }}">
+        <div>
+            <a href="{{ s3 }}{{ Company._id }}/{{ document.File }}">
+                {{ document.Name }}
+            </a>
+            <button
+                    class="secondary-content btn download_button"
+                    onclick="location.href = '{{ s3 }}{{ Company._id }}/{{ document.File }}'"><i class="fa fa-download"></i></button>
+            <a class="secondary-content dropdown-button btn trash_button" data-activates='drpdwn{{document._id | replace({'"': '', '"': ''})}}'><i class="fa fa-trash"></i></a>
+            <ul id='drpdwn{{document._id | replace({'"': '', '"': ''})}}' class='dropdown-content'>
+                <li>
+                    <a class="delete_document">
+                        {{ __("Delete Document") }}
+                    </a>
+                </li>
+            </ul>
+            <div class="clear"></div>
+        </div>
+</li>

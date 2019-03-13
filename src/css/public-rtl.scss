@@ -1,0 +1,127 @@
+ @import './public.scss';
+
+.row .col:not(.company_url_container) {
+  float: right;
+}
+
+.input-field label:not(.label-icon).active {
+ right: 0;
+ left: auto;
+ transform: translateY(-14px) scale(0.8);
+ transform-origin: calc(100% - 85px) top;
+ text-align: right;
+}
+
+input:not([type])+label:after, input[type=text]:not(.browser-default)+label:after, input[type=password]:not(.browser-default)+label:after, input[type=email]:not(.browser-default)+label:after, input[type=url]:not(.browser-default)+label:after, input[type=time]:not(.browser-default)+label:after, input[type=date]:not(.browser-default)+label:after, input[type=datetime]:not(.browser-default)+label:after, input[type=datetime-local]:not(.browser-default)+label:after, input[type=tel]:not(.browser-default)+label:after, input[type=number]:not(.browser-default)+label:after, input[type=search]:not(.browser-default)+label:after, textarea.materialize-textarea+label:after, .select-wrapper+label:after {
+ left: initial;
+ right: 0;
+}
+
+.input-field.col label {
+ right: 1.15rem;
+ left: 0;
+  text-align: right;
+}
+
+ul:not(.browser-default) {
+ padding-right: 0;
+}
+
+.dropdown-content li>a, .dropdown-content li>span {
+ text-align: right;
+}
+
+.select-wrapper {
+ &+label {
+   right: 0;
+ }
+
+ span.caret {
+   right: auto;
+   left: 0;
+ }
+}
+
+.preloader-wrapper {
+   direction: ltr;
+ }
+
+.seet_domain {
+ .domain {
+   left: 0;
+   direction: ltr;
+ }
+}
+
+.intl-tel-input {
+  .selected-flag {
+    padding: 0 8px 0 0;
+
+    .iti-arrow {
+      left: 6px;
+      right: initial;
+    }
+  }
+
+  &.allow-dropdown {
+    .flag-container {
+      right: 0;
+      left: auto;
+    }
+
+  input[type="text"] {
+      padding-right: 55px;
+      padding-left: 6px;
+    }
+  }
+
+  .country-list {
+    .country {
+    text-align: right;
+    }
+  }
+}
+
+.actions_container {
+  .btn {
+    float: left;
+
+    i {
+      margin-left: 5px;
+    }
+  }
+}
+
+ul.success_errors {
+  > li {
+    text-align: right !important;
+  }
+}
+
+input[type="tel"] {
+  padding-left: 6px !important;
+  margin-right: 52px !important;
+}
+
+ul.collection {
+  padding-right: 0;
+}
+
+.login_page {
+  .actions_container {
+    .preloader-wrapper {
+      float: left !important;
+    }
+  }
+  .tos_row {
+    direction: rtl;
+  }
+}
+
+#WhyLeave {
+   direction: rtl;
+
+  .modal-footer {
+    text-align: left;
+  }
+ }

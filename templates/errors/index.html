@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="UTF-8">
+    <title>seet - maintainance</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.bundle.min.js"></script>
+    <style type="text/css">
+        body {
+            padding-top: 200px;
+            background: #e3e3e3;
+            /*color: #FFF;*/
+        }
+
+        .title img {
+            width: 47px;
+        }
+
+        .title {
+            color: #1565c0;
+            margin-bottom: 40px;
+        }
+
+        svg {
+            height: 0px;
+            width: 0px;
+        }
+
+        @keyframes loader {
+            50% {
+                transform: translateY(-16px);
+                background-color: #1b98e0;
+            }
+        }
+        body {
+            /*background-color: #13293d;*/
+            margin: 0;
+        }
+
+        .loader {
+            filter: url("#goo");
+            width: 100px;
+            margin: 0 auto;
+            position: relative;
+            top: 40px;
+            transform: translateY(-10px);
+        }
+        .loader > div {
+            float: left;
+            height: 20px;
+            width: 20px;
+            border-radius: 100%;
+            background-color: #006494;
+            animation: loader 0.8s infinite;
+        }
+
+        .loader > div:nth-child(1) {
+            animation-delay: 0.16s;
+        }
+
+        .loader > div:nth-child(2) {
+            animation-delay: 0.32s;
+        }
+
+        .loader > div:nth-child(3) {
+            animation-delay: 0.48s;
+        }
+
+        .loader > div:nth-child(4) {
+            animation-delay: 0.64s;
+        }
+
+        .loader > div:nth-child(5) {
+            animation-delay: 0.8s;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col s12">
+                <h1 class="text-center title">
+                    <img src="https://static.seet.io/files/symbol.png" alt="seet">
+                    seet
+                </h1>
+                <h2 class="text-center"s style="margin-bottom: 40px;">Maintainance mode</h2>
+                <p class="text-center">
+                    Seeing this page? it's good! means that we are actually updating the platform right now, and <br>
+                    better version will be uploaded soon. hold it tight.
+                    <br><br>
+                    This screen will automatically refresh itself
+                </p>
+                <div class="text-center" style="position: relative;">
+                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+                        <defs>
+                            <filter id="goo">
+                                <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+                                <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 35 -10" result="goo" />
+                                <feBlend in="SourceGraphic" in2="goo" operator="atop" />
+                            </filter>
+                        </defs>
+                    </svg>
+                    <div class="loader">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        setTimeout(
+            function () {
+                location.reload();
+            }, 10000
+        )
+    </script>
+</body>
+</html>

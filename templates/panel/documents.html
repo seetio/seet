@@ -1,0 +1,57 @@
+<div class="container documents_page page_margin_top fade_in_up">
+    <div class="row">
+        <div class="col s12">
+            {% if CanEditDocuments %}
+                <div id="AddNewDocument" class="chip">
+                    <i class="fa fa-plus"></i>{{ __("Add Document") }}
+                </div>
+            {% endif %}
+            <div class="clear"></div>
+            <ul class="collection documents_container">
+                {% for document in documents %}
+                    {% include 'components/document.html' %}
+                {% endfor %}
+            </ul>
+            <div class="no_results card center-align hide">
+                <div class="card-content">
+                    😓
+                    <p>{{ __("No documents yet ") }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // $('.collapsible').collapsible()
+        // $('select').material_select();
+    </script>
+</div>
+<div id="AddEditDocumentModal" class="modal">
+    <div class="modal-content">
+        <div class="row">
+            <div class="col s12">
+                <h4 class="edit">{{ __("Add Document") }}</h4>
+            </div>
+            <div class="input-field col s12">
+                <input id="NewDocumentTitle" type="text" class="validate" value="" placeholder='{{ __("Eating in meeting room") }}'>
+                <label class="active" for="NewDocumentTitle">{{ __('Document name') }}</label>
+            </div>
+            <div class="clear"></div>
+            <div class="file-field input-field col s12">
+                <div class="btn">
+                    <span>{{ __("File") }}</span>
+                    <input id="NewDocumentFile" type="file">
+                </div>
+                <div class="file-path-wrapper">
+                    <input class="file-path validate" type="text" placeholder="{{ __("Select your document file") }}">
+                </div>
+            </div>
+            <ul class="collection hide errors_con text-accent-4 red-text red lighten-4">
+                <li class="errors collection-item red lighten-4"></li>
+            </ul>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a class="modal-action modal-close waves-effect btn-flat">{{ __("Cancel") }}</a>
+        <a id="SubmitAddNewDocument" class="add modal-action waves-effect green-text btn-flat">{{ __("Add") }}</a>
+    </div>
+</div>

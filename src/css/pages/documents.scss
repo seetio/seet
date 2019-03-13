@@ -1,0 +1,30 @@
+.documents_page {
+    #AddNewDocument {
+        float: right;
+        cursor: pointer;
+    }
+
+    .documents_container {
+        overflow: visible;
+
+        li {
+            a {
+                line-height: 36px;
+            }
+        }
+
+        .download_button {
+            margin-left: 10px;
+        }
+
+        .document {
+            &.active {
+                background-color: #FFF;
+            }
+        }
+    }
+
+    .no_results {
+        font-size: 21px;
+    }
+}

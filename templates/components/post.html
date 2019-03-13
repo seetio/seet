@@ -1,0 +1,71 @@
+<div class="card single_post" data-post="{{post._id | replace({'"': '', '"': ''})}}">
+    <div class="card-content">
+        <div class="post_title">
+            {% if CanEditFeed || IsEqualStrings(post.User[0]._id, User._id) %}
+                <button class="btn-flat dropdown-button" data-activates='drpdwn{{post._id | replace({'"': '', '"': ''})}}'>
+                    <i class="fa fa-caret-down" aria-hidden="true"></i>
+                </button>
+                <ul id='drpdwn{{post._id | replace({'"': '', '"': ''})}}' class='dropdown-content'>
+                    <li>
+                        <a class="edit_message" data-type="post" data-id='{{post._id | replace({'"': '', '"': ''})}}'>
+                            {{ __("Edit") }}
+                        </a>
+                    </li>
+                    <li>
+                        <a class="delete_post">
+                            {{ __("Delete Post") }}
+                        </a>
+                    </li>
+                </ul>
+            {% endif  %}
+            <div>
+                <img class="thumb" src="{{ post.User[0].Thumb | Thumb(s3, Company._id + '/') }}" alt="">
+            </div>
+            <div>
+                <a href="#/employees/{{post.User[0]._id | replace({'"': '', '"': ''})}}">
+                    <h5 class="name">{{post.User[0].FirstName}} {{post.User[0].LastName}}</h5>
+                </a>
+                <p class="date">{{post.Date | date('m/d/y  H:i:s')}}</p>
+            </div>
+        </div>
+        <div class="post_content">
+            {{post.Content | nl2br | Linkify }}
+        </div>
+        {% if post.Media %}
+            <div class="post_media">
+                {% autoescape false %}
+                    {{post.Media | Image(s3, Company._id + '/') | Media }}
+                {% endautoescape %}
+            </div>
+        {% endif %}
+        <div class="feedback_results">
+            <div>
+                <span class="like_count">{{ post.Likes | length }}</span> {{ __("Likes") }}
+            </div>
+            <div>
+                <span class="comment_count">{{ post.Comments | length }}</span> {{ __("Comments") }}
+            </div>
+        </div>
+    </div>
+    <div class="card-content grey lighten-4">
+        <form class="newComment">
+            <div class="row feedback_actions">
+                <button class="like btn-flat col s1 submit waves-effect" type="button">    
+                    <i class="do_unlike fa fa-thumbs-up {% if false === InArray(User._id, post.Likes) %}hide{% endif %}"></i>
+                    <i class="do_like fa fa-thumbs-o-up {% if true === InArray(User._id, post.Likes) %}hide{% endif %}"></i>
+                </button>
+                <div class="input-field col s10">
+                        <input class="user_comment" type="text" placeholder='{{ __("Type you comment here") }}'>
+                </div>
+                <button class="btn-flat col s1 submit waves-effect">
+                    <i class="fa fa-send"></i>
+                </button>
+            </div>
+        </form>
+        <div class="comments">
+            {% for comment in post.Comments %}
+                {% include 'components/comment.html' %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
